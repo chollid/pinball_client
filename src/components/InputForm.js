@@ -3,17 +3,25 @@ import styles from "@src/styles/Home.module.css";
 import Button from "@src/components/Button";
 import axios from "axios";
 
-const Input = ({ setPinballLocationData, handleScrollToList }) => {
-  const [lat, setLat] = useState("");
-  const [long, setLong] = useState("");
+const Input = ({
+  setPinballLocationData,
+  handleScrollToList,
+  lat,
+  setLat,
+  long,
+  setLong,
+}) => {
   const [load, setLoad] = useState(false);
 
+  // Grab lat and long with html Geolocation API
+  // https://www.w3schools.com/html/html5_geolocation.asp
   const showPosition = async (position) => {
     await setLat(position.coords.latitude);
     await setLong(position.coords.longitude);
     setLoad(false);
   };
 
+  // Check if browser supports Geolocation API
   const getLocation = () => {
     setLoad(true);
     if (navigator.geolocation) {
@@ -25,15 +33,25 @@ const Input = ({ setPinballLocationData, handleScrollToList }) => {
     }
   };
 
+  // Initialize Geolocation API
   const handleNearMe = () => {
     getLocation();
   };
 
   const url = "https://pinballmap.com/api/v1/locations/closest_by_lat_lon.json";
 
+  // validation check
+  // request to pinballmap API
+  // grab all locations within 50 miles of lat/long
   const handleSearch = () => {
     if (lat === "" || long === "") {
       alert("Please enter a latitude and longitude");
+      return;
+    } else if (lat < -90 || lat > 90) {
+      alert("Please enter a valid latitude");
+      return;
+    } else if (long < -180 || long > 180) {
+      alert("Please enter a valid longitude");
       return;
     } else {
       axios
@@ -44,7 +62,7 @@ const Input = ({ setPinballLocationData, handleScrollToList }) => {
           const pinballLocationData = response.data.locations;
           setPinballLocationData(pinballLocationData);
         });
-      }
+    }
   };
 
   return (
@@ -94,7 +112,12 @@ const Input = ({ setPinballLocationData, handleScrollToList }) => {
         />
       </div>
       <div className={styles.scrollText}>
-        <button onClick={() =>  handleScrollToList()} className={styles.scrollButton}>Scroll ↓</button>
+        <button
+          onClick={() => handleScrollToList()}
+          className={styles.scrollButton}
+        >
+          Scroll ↓
+        </button>
       </div>
     </div>
   );
