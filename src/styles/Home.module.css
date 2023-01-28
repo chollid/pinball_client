@@ -1,50 +1,24 @@
 .main {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
   padding: 6rem;
-  min-height: 100vh;
+  height: 100vh;
 }
 
-.description {
-  display: inherit;
-  justify-content: inherit;
-  align-items: inherit;
-  font-size: 0.85rem;
-  max-width: var(--max-width);
-  width: 100%;
-  z-index: 2;
-  font-family: var(--font-mono);
-}
-
-.description a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.description p {
-  position: relative;
-  margin: 0;
-  padding: 1rem;
-  background-color: rgba(var(--callout-rgb), 0.5);
-  border: 1px solid rgba(var(--callout-border-rgb), 0.3);
-  border-radius: var(--border-radius);
-}
 
 .code {
   font-weight: 700;
   font-family: var(--font-mono);
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(25%, auto));
-  width: var(--max-width);
-  max-width: 100%;
+/* Placeholder Style */
+.latInput::placeholder, .longInput::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: var(--grey300);
+  opacity: 1; /* Firefox */
 }
+
+.latInput::-ms-input-placeholder, .latInput::-ms-input-placeholder  { /* Microsoft Edge */
+  color: var(--grey300);
+}
+
 
 .card {
   padding: 1rem 1.2rem;
@@ -72,36 +46,104 @@
   max-width: 30ch;
 }
 
-.center {
+.helpButton {
+  margin: 0 50%;
+  transform: translateX(-50%);
+  border: none;
+  background: none;
+  color: rgb(64, 64, 137);
+  cursor: pointer;
+  border-bottom: 1px solid rgb(38, 38, 38);
+  font-size: 16px;
+}
+
+.helpContainer {
+  margin: 0 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 200px;
+  border: 1px solid var(--grey400);
+  border-radius: var(--border-radius);
+  padding: 10px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.labelEl {
+  margin: 0 0 4px 8px;
+}
+
+.latLabelContainer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 75%;
+}
+
+.longLabelContainer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 75%;
+  margin-top: 45px;
+}
+
+.latLongInputContainer {
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
-  position: relative;
-  padding: 4rem 0;
+  box-shadow: 0px 2px 8px -1px #0000001a;
+  border-radius: var(--border-radius);
+  width: 350px;
+  height: 400px;
+  margin: 100px 50%;
+  transform: translateX(-50%);
+  margin-top: 20px;
 }
 
-.center::before {
-  background: var(--secondary-glow);
-  border-radius: 50%;
-  width: 480px;
-  height: 360px;
-  margin-left: -400px;
+.latInput {
+  border: none;
+  width: 75%;
+  border-radius: 12px;
+  padding: 14px;
 }
 
-.center::after {
-  background: var(--primary-glow);
-  width: 240px;
-  height: 180px;
-  z-index: -1;
+
+.latInput:focus-visible, .longInput:focus-visible{
+  outline-color: var(--grey500);
+  outline-style: solid;
 }
 
-.center::before,
-.center::after {
-  content: '';
-  left: 50%;
+.longInput {
+  border: none;
+  width: 75%;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.latInput:hover, .longInput:hover {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.nearMeButton {
+  padding: 10px 20px
+}
+
+.pinballImage {
+  background-repeat: repeat-y;
   position: absolute;
-  filter: blur(45px);
-  transform: translateZ(0);
+  right: 0;
+  top: 10%;
+  z-index: -2;
 }
 
 .logo,
@@ -163,15 +205,6 @@
   }
 }
 
-@media (prefers-reduced-motion) {
-  .thirteen::before {
-    animation: none;
-  }
-
-  .card:hover span {
-    transform: none;
-  }
-}
 
 /* Mobile */
 @media (max-width: 700px) {
